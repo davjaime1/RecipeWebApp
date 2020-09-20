@@ -8,6 +8,22 @@
 <title>Insert title here</title>
 </head>
 <body>
-	Register Page
+	<form name="loginform" action="Controller?action=register" method="post">
+		<table>
+			<tr>
+				<td> User Name: </td>
+				<td> <input name="idusername" value=""  type="text" maxlength="15"> </td>
+			</tr>
+			<tr>
+				<td> Password: </td>
+				<td> <input name="idpassword" value=""  type="password" maxlength="15"> </td>
+			</tr>
+			<tr>
+				<td> Email: </td>
+				<td> <input name="idemail" value=""  type="text" maxlength="25"> </td>
+			</tr>
+		</table>
+		<input name="submit" type="submit" value="Register">
+	</form>
 </body>
 </html>
