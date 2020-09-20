@@ -5,11 +5,11 @@
 <html>
 <body>
 <h1>Recipe Website Title</h1>
-<form name="loginform" action="ViewAllRecipes.jsp">
-<input type="button" value="Login">
+<form name="loginform" action="LoginForm.html" method="get">
+<input type="submit" value="Login">
 </form>
-<form name="registerform" action="ViewAllRecipes.jsp">
-<input type="button" value="Register">
+<form name="registerform" action="RegisterForm.html" method="get">
+<input type="submit" value="Register">
 </form>
 </body>
 </html>
