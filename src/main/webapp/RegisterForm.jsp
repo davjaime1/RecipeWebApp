@@ -3,9 +3,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
 <body>
-<h1>Recipe Website Title</h1>
-	<form name="loginform" action="Controller?action=login" method="post">
+	<form name="loginform" action="Controller?action=register" method="post">
 		<table>
 			<tr>
 				<td> User Name: </td>
@@ -15,11 +18,12 @@
 				<td> Password: </td>
 				<td> <input name="idpassword" value=""  type="password" maxlength="15"> </td>
 			</tr>
+			<tr>
+				<td> Email: </td>
+				<td> <input name="idemail" value=""  type="text" maxlength="25"> </td>
+			</tr>
 		</table>
-		<input name="submit" type="submit" value="Login">
+		<input name="submit" type="submit" value="Register">
 	</form>
-<form name="registerform" action="RegisterForm.jsp" method="get">
-<input type="submit" value="Register">
-</form>
 </body>
 </html>
