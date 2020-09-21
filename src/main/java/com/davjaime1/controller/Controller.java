@@ -5,9 +5,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.davjaime1.dao.UserDAO;
 import com.davjaime1.model.Admin;
+import com.davjaime1.model.ErrorMsgs;
 import com.davjaime1.model.User;
 
 /**
@@ -27,18 +29,26 @@ public class Controller extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		/*if (action.equalsIgnoreCase("register"))
+        {
+        
+        }*/
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
 		
 		String action = request.getParameter("action");
+		HttpSession session = request.getSession();
+		session.removeAttribute("ErrorMsgs");
+		session.removeAttribute("User");
 		String url = "";
+		
 		if (action.equalsIgnoreCase("register"))
         {
 			//Get the user inputed data
@@ -49,13 +59,25 @@ public class Controller extends HttpServlet {
 			//Default registration is 1, for general users
 			//Admins would be manually added to the db
 			int role = 1;
-			
-			//Create a new user
+			//Create a new user based on input
 			User user = new Admin(username, password, email, role);
 			
-			UserDAO.addNewUser(user);
+			//First we need to validate and if there are errors reload the page
+			ErrorMsgs err = new ErrorMsgs();
+			err.validateRegForm(username, password, email);
+			request.setAttribute("ErrorMsgs", err);
+			request.setAttribute("User", user);
+			System.out.println(err);
 			
-            url = "/index.jsp";
+			if(err.isError())
+			{
+				url = "/RegisterForm.jsp";
+			}
+			else
+			{
+				UserDAO.addNewUser(user);	
+	            url = "/index.jsp";
+			}
         }
 		else if(action.equalsIgnoreCase("login"))
 		{
