@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.davjaime1.dao.UserDAO;
 import com.davjaime1.model.Admin;
 import com.davjaime1.model.User;
 
@@ -45,8 +46,14 @@ public class Controller extends HttpServlet {
 			String password = request.getParameter("idpassword");
 			String email = request.getParameter("idemail");
 			
+			//Default registration is 1, for general users
+			//Admins would be manually added to the db
+			int role = 1;
+			
 			//Create a new user
 			User user = new Admin(username, password, email, role);
+			
+			UserDAO.addNewUser(user);
 			
             url = "/index.jsp";
         }
