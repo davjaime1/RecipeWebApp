@@ -31,10 +31,14 @@ public class Controller extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		/*if (action.equalsIgnoreCase("register"))
+		HttpSession session = request.getSession();
+		String action = request.getParameter("action");
+		String url = "";
+		if (action.equalsIgnoreCase("CreateNewPostPage"))
         {
-        
-        }*/
+			url="/CreatePost.jsp";
+        }
+		getServletContext().getRequestDispatcher(url).forward(request, response);
 	}
 
 	/**
@@ -42,11 +46,10 @@ public class Controller extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		
-		String action = request.getParameter("action");
 		HttpSession session = request.getSession();
-		session.removeAttribute("ErrorMsgs");
-		session.removeAttribute("User");
+		String action = request.getParameter("action");
+		request.removeAttribute("ErrorMsgs");
+		request.removeAttribute("User");
 		String url = "";
 		
 		if (action.equalsIgnoreCase("register"))
@@ -66,9 +69,7 @@ public class Controller extends HttpServlet {
 			ErrorMsgs err = new ErrorMsgs();
 			err.validateRegForm(username, password, email);
 			request.setAttribute("ErrorMsgs", err);
-			request.setAttribute("User", user);
-			System.out.println(err);
-			
+			request.setAttribute("User", user);			
 			if(err.isError())
 			{
 				url = "/RegisterForm.jsp";
@@ -81,14 +82,37 @@ public class Controller extends HttpServlet {
         }
 		else if(action.equalsIgnoreCase("login"))
 		{
-			url = "/ViewAllRecipes.jsp";
+			//We want to first get the user input
+			String username = request.getParameter("idusername");
+			String password = request.getParameter("idpassword");
+			
+			//Next we want to check if the database for a match
+			//it will return a boolean value for response
+			boolean code = UserDAO.loginUser(username, password);
+			
+			//If there was a match we want to forward the next page
+			//Else throw some error messages
+			if(code)
+			{
+				//Now we want to create a user object to carry in the session
+				User user = UserDAO.getUser(username, password);
+				session.setAttribute("USER", user);
+				url = "/ViewAllRecipes.jsp";
+			}
+			else
+			{
+				ErrorMsgs err = new ErrorMsgs();
+				err.loginFormError();
+				request.setAttribute("ErrorMsgs", err);
+				url = "/index.jsp";
+				
+			}
+			
 		}
 		else
 		{
-			
 		}
-        getServletContext().getRequestDispatcher(url).forward(request, response);
-		doGet(request, response);
+		getServletContext().getRequestDispatcher(url).forward(request, response);
 	}
 
 }

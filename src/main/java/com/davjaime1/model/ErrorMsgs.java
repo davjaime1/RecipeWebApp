@@ -8,6 +8,7 @@ public class ErrorMsgs
 	private String usernameError;
 	private String passwordError;
 	private String emailError;
+	private String loginError;
 	private boolean error;
 	
 	public ErrorMsgs()
@@ -19,8 +20,9 @@ public class ErrorMsgs
 	public String toString()
 	{
 		return "ErrorMsgs [usernameError=" + usernameError + ", passwordError=" + passwordError + ", emailError="
-				+ emailError + ", error=" + error + "]";
+				+ emailError + ", loginError=" + loginError + ", error=" + error + "]";
 	}
+
 
 	public void validateRegForm(String username, String password, String email)
 	{
@@ -57,6 +59,11 @@ public class ErrorMsgs
 			setEmailError("");
 		}
 			
+	}
+	
+	public void loginFormError()
+	{
+		setLoginError("Username or password is incorrect");
 	}
 	
 	public boolean isError()
@@ -97,5 +104,14 @@ public class ErrorMsgs
 	public void setEmailError(String emailError)
 	{
 		this.emailError = emailError;
+	}
+	public String getLoginError()
+	{
+		return loginError;
+	}
+
+	public void setLoginError(String loginError)
+	{
+		this.loginError = loginError;
 	}
 }
