@@ -1,20 +1,34 @@
 package com.davjaime1.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import com.davjaime1.dao.UserDAO;
 import com.davjaime1.model.Admin;
 import com.davjaime1.model.ErrorMsgs;
+import com.davjaime1.model.Post;
 import com.davjaime1.model.User;
+import com.davjaime1.sql.SQLConnection;
 
 /**
  * Servlet implementation class Controller
  */
+@MultipartConfig(maxFileSize = 16177215) 
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -97,6 +111,9 @@ public class Controller extends HttpServlet {
 				//Now we want to create a user object to carry in the session
 				User user = UserDAO.getUser(username, password);
 				session.setAttribute("USER", user);
+				List<Post> postList = new ArrayList<Post>();
+				postList = UserDAO.getPost();
+				request.setAttribute("Post", postList);
 				url = "/ViewAllRecipes.jsp";
 			}
 			else
@@ -108,6 +125,33 @@ public class Controller extends HttpServlet {
 				
 			}
 			
+		}
+		else if(action.equalsIgnoreCase("createPost"))
+		{
+			String title = request.getParameter("title");
+			String desc = request.getParameter("desc");
+			String inst = request.getParameter("instructions");
+			
+			InputStream input = null; // input stream of the upload file
+			Part filePart = request.getPart("photo");
+			input = filePart.getInputStream();
+						
+			//Now we need to query
+			UserDAO.postRecipe(title, desc, inst, input);
+			
+			//Now get ready for view all recipes page
+			List<Post> postList = new ArrayList<Post>();
+			postList = UserDAO.getPost();
+			request.setAttribute("Post", postList);
+			
+			url = "/ViewAllRecipes.jsp";
+		}
+		else if(action.equalsIgnoreCase("ViewAllRecipes"))
+		{
+			List<Post> postList = new ArrayList<Post>();
+			postList = UserDAO.getPost();
+			request.setAttribute("Post", postList);
+			url = "/ViewAllRecipes.jsp";
 		}
 		else
 		{
