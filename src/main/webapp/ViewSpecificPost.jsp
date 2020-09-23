@@ -14,6 +14,20 @@
 		<tr><td>Title: <c:out value="${Post.title}" /></td></tr>
 		<tr><td>Description: <c:out value="${Post.description}" /></td></tr>
 		<tr><td>Instructions: <pre><c:out value="${Post.instructions}" /></pre></td></tr>
+		<c:choose>
+			<c:when test = "${Post.userId == USER.userId}">
+				<tr><td>Post Visibility: 
+					<c:choose>
+		         		<c:when test = "${Post.viewId == 0}">
+		            		Private
+		         		</c:when>
+		         		<c:when test = "${Post.viewId == 1}">
+		            		Public
+		         		</c:when>
+		         	</c:choose>
+		         </td></tr>
+		 	</c:when>
+         </c:choose>
    	</table>
 </body>
 </html>

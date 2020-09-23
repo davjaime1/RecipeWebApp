@@ -23,7 +23,7 @@
             </tr>
             <tr>
                 <td>Description: </td>
-                <td><input type="text" name="desc" size="50"/></td>
+                <td><textarea name="desc" cols="50" rows="6"></textarea></td>
             </tr>
             <tr>
                 <td>Instructions: </td>
@@ -32,6 +32,17 @@
             <tr>
                 <td>Recipe Photo: </td>
                 <td><input type="file" name="photo" size="100"/></td>
+            </tr>
+            <tr>
+            	
+                <td>
+                	<label for="1">Public</label><br>
+                	<input type="radio" id="publicid" name="view" value="1">
+                </td>
+                <td>
+                	<label for="0">Private</label><br>
+                	<input type="radio" id="privateid" name="view" value="0">
+                </td>
             </tr>
             <tr>
                 <td colspan="2">

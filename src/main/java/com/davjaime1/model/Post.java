@@ -7,12 +7,21 @@ public class Post
 	private String description;
 	private String instructions;
 	private String userId;
+	private int viewId;
 	
+	public void setViewId(int viewId)
+	{
+		this.viewId = viewId;
+	}
+	public int getViewId()
+	{
+		return viewId;
+	}
 	@Override
 	public String toString()
 	{
 		return "Post [postId=" + postId + ", title=" + title + ", description=" + description + ", instructions="
-				+ instructions + ", userId=" + userId + ", photo=" + photo + "]";
+				+ instructions + ", userId=" + userId + ", viewId=" + viewId + ", photo=" + photo + "]";
 	}
 	public int getPostId()
 	{

@@ -102,19 +102,20 @@ public abstract class UserDAO
 		return user;
 	}
 	
-	public static void postRecipe(String title, String desc, String inst, InputStream input, int user_id)
+	public static void postRecipe(String title, String desc, String inst, InputStream input, int user_id, int viewPostId)
 	{
         try
         {
         	Connection conn = SQLConnection.getDBConnection();
             // constructs SQL statement
-            String query = "INSERT INTO recipe (title, description, instruction, photo, user_id) VALUES (?,?,?,?,?)";
+            String query = "INSERT INTO recipe (title, description, instruction, photo, user_id, view) VALUES (?,?,?,?,?,?)";
             PreparedStatement statement = conn.prepareStatement(query);
             statement.setString(1, title);
             statement.setString(2, desc);
             statement.setString(3, inst);
             statement.setBlob(4, input);
             statement.setInt(5, user_id);
+            statement.setInt(6, viewPostId);
             int status = statement.executeUpdate();
             if(status > 0) {
                 System.out.println("Record is inserted successfully !!!");
@@ -140,6 +141,7 @@ public abstract class UserDAO
                 String desc = rs.getString("description");
                 String instruction = rs.getString("instruction");
                 String user_id = rs.getString("user_id");
+                int view_id = rs.getInt("view");
                 Blob blob = rs.getBlob("photo");
                  
                 InputStream inputStream = blob.getBinaryStream();
@@ -165,6 +167,7 @@ public abstract class UserDAO
                 p.setInstructions(instruction);
                 p.setUserId(user_id);
                 p.setPhoto(base64Image);
+                p.setViewId(view_id);
                 postList.add(p);
             }
         }
@@ -177,7 +180,15 @@ public abstract class UserDAO
 	
 	public static List<Post> getAllPost()
 	{
-		String query = "SELECT * FROM recipe r";
+		String query = "SELECT * FROM recipe r WHERE r.view = '" + 1 + "'";
+		List<Post> postList = new ArrayList<Post>();
+		postList = queryPost(query);
+		return postList;
+	}
+	
+	public static List<Post> getAllMyPosts(int user_id)
+	{
+		String query = "SELECT * FROM recipe r WHERE r.user_id = '" + user_id + "'";
 		List<Post> postList = new ArrayList<Post>();
 		postList = queryPost(query);
 		return postList;

@@ -71,6 +71,19 @@ public class Controller extends HttpServlet {
 		{
 			url = "/RegisterForm.jsp";
 		}
+		else if(action.equalsIgnoreCase("myPosts"))
+		{
+			//We need to get the current user
+			User u = (User) session.getAttribute("USER");
+			int user_id = u.getUserId();
+			
+			//Now we use the user_id to query
+			List<Post> postList = new ArrayList<Post>();
+			postList = UserDAO.getAllMyPosts(user_id);
+			request.setAttribute("Post", postList);
+			
+			url = "/MyPosts.jsp";
+		}
 		else
 		{
 			url = "/index.jsp";
@@ -154,6 +167,8 @@ public class Controller extends HttpServlet {
 			String title = request.getParameter("title");
 			String desc = request.getParameter("desc");
 			String inst = request.getParameter("instructions");
+			int viewPostId = Integer.parseInt(request.getParameter("view"));
+			System.out.println(viewPostId);
 			User u = (User) session.getAttribute("USER");
 			int user_id = u.getUserId();
 			InputStream input = null; // input stream of the upload file
@@ -161,7 +176,7 @@ public class Controller extends HttpServlet {
 			input = filePart.getInputStream();
 						
 			//Now we need to query
-			UserDAO.postRecipe(title, desc, inst, input, user_id);
+			UserDAO.postRecipe(title, desc, inst, input, user_id, viewPostId);
 			
 			//Now get ready for view all recipes page
 			List<Post> postList = new ArrayList<Post>();
