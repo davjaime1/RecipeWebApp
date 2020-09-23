@@ -21,6 +21,7 @@ import javax.servlet.http.Part;
 import com.davjaime1.dao.UserDAO;
 import com.davjaime1.model.Admin;
 import com.davjaime1.model.ErrorMsgs;
+import com.davjaime1.model.GeneralUser;
 import com.davjaime1.model.Post;
 import com.davjaime1.model.User;
 import com.davjaime1.sql.SQLConnection;
@@ -85,7 +86,7 @@ public class Controller extends HttpServlet {
 			//Admins would be manually added to the db
 			int role = 1;
 			//Create a new user based on input
-			User user = new Admin(username, password, email, role);
+			User user = new GeneralUser(username, password, email, role);
 			
 			//First we need to validate and if there are errors reload the page
 			ErrorMsgs err = new ErrorMsgs();

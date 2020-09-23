@@ -6,16 +6,15 @@ public class User
 	private String password;
 	private String email;
 	private int roleId;
-	private int userId;
+	protected int userId;
 	
-	public User(String username, String password, String email, int roleId, int userId)
+	public User(String username, String password, String email, int roleId)
 	{
 		super();
 		this.username = username;
 		this.password = password;
 		this.email = email;
 		this.roleId = roleId;
-		this.userId = userId;
 	}
 
 	public int getUserId()
