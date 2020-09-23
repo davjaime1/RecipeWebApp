@@ -61,8 +61,10 @@ public class Controller extends HttpServlet {
 			Post p = UserDAO.getSpecificPost(postNum);
 			request.setAttribute("Post", p);	
 			String pUser = UserDAO.getPostUser(p.getUserId());
-			System.out.println(pUser);
 			request.setAttribute("pUser", pUser);
+			
+			//Now we need to update the view count
+			UserDAO.upView(p.getPostId());
 			url = "/ViewSpecificPost.jsp";
 		}
 		else if(action.equalsIgnoreCase("logout"))

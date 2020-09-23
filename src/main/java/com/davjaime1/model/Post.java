@@ -8,7 +8,16 @@ public class Post
 	private String instructions;
 	private String userId;
 	private int viewId;
+	private int views;
 	
+	public int getViews()
+	{
+		return views;
+	}
+	public void setViews(int views)
+	{
+		this.views = views;
+	}
 	public void setViewId(int viewId)
 	{
 		this.viewId = viewId;
@@ -21,7 +30,8 @@ public class Post
 	public String toString()
 	{
 		return "Post [postId=" + postId + ", title=" + title + ", description=" + description + ", instructions="
-				+ instructions + ", userId=" + userId + ", viewId=" + viewId + ", photo=" + photo + "]";
+				+ instructions + ", userId=" + userId + ", viewId=" + viewId + ", views=" + views + ", photo=" + photo
+				+ "]";
 	}
 	public int getPostId()
 	{

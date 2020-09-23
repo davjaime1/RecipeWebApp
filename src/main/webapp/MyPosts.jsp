@@ -8,7 +8,8 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
-<body>
+	<body>
+		<%@ include file="Header.jsp" %> 
 	   	<table>
    			<c:forEach items="${Post}" var="item">
    				<tr><td><a href="Controller?action=ViewSpecificPost&postNum=${item.postId}"><img src="data:image/jpg;base64,${item.photo}" width="240" height="300"/></a></td></tr>
@@ -17,5 +18,5 @@
 	   		   	<tr><td><a href="Controller?action=ViewSpecificPost&postNum=${item.postId}">Read More...</a></td></tr>
 	   		</c:forEach>	   		
    		</table>
-</body>
+	</body>
 </html>

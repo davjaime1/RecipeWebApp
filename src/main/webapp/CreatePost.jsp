@@ -9,12 +9,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Post a new recipe</h1>
-	Create a post page
-	<br>
-	A new form for uploading an image
-	<br>
-	and a block of input for instructions
+	<%@ include file="Header.jsp" %> 
+	<h2>Post a new recipe</h2>
     <form method="post" action="Controller?action=createPost" enctype="multipart/form-data">
         <table>
             <tr>
