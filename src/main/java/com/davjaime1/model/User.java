@@ -6,13 +6,25 @@ public class User
 	private String password;
 	private String email;
 	private int roleId;
+	protected int userId;
 	
-	public User(String username, String password, String email, int role)
-	{	
+	public User(String username, String password, String email, int roleId)
+	{
+		super();
 		this.username = username;
 		this.password = password;
 		this.email = email;
-		this.roleId = role;
+		this.roleId = roleId;
+	}
+
+	public int getUserId()
+	{
+		return userId;
+	}
+
+	public void setUserId(int userId)
+	{
+		this.userId = userId;
 	}
 
 	public int getRoleId()
@@ -50,7 +62,9 @@ public class User
 	}
 
 	@Override
-	public String toString() {
-		return "User [username=" + username + ", password=" + password + ", email=" + email + "]";
+	public String toString()
+	{
+		return "User [username=" + username + ", password=" + password + ", email=" + email + ", roleId=" + roleId
+				+ ", userId=" + userId + "]";
 	}
 }
