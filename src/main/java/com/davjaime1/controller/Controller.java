@@ -131,13 +131,16 @@ public class Controller extends HttpServlet {
 			String title = request.getParameter("title");
 			String desc = request.getParameter("desc");
 			String inst = request.getParameter("instructions");
-			
+			User u = (User) session.getAttribute("USER");
+			System.out.println("User: " + u);
+			int user_id = u.getUserId();
+			System.out.println(user_id);
 			InputStream input = null; // input stream of the upload file
 			Part filePart = request.getPart("photo");
 			input = filePart.getInputStream();
 						
 			//Now we need to query
-			UserDAO.postRecipe(title, desc, inst, input);
+			UserDAO.postRecipe(title, desc, inst, input, user_id);
 			
 			//Now get ready for view all recipes page
 			List<Post> postList = new ArrayList<Post>();

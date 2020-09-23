@@ -4,8 +4,11 @@
 <%@ page isELIgnored="false"%>
 <!DOCTYPE html>
 <html>
+<head>
+	<title>Post Your Recipes!</title>
+</head>
 <body>
-<h1>Recipe Website Title</h1>
+<h1>Recipe Anthology</h1>
 	<form name="loginform" action="Controller?action=login" method="post">
 		<input name="userIDerror"  value="<c:out value='${ErrorMsgs.loginError}'/>" type="text" style ="background-color: white; border: none; width: 500px" disabled="disabled">
 		<table>

@@ -81,6 +81,7 @@ public abstract class UserDAO
 	    String query = "SELECT * FROM users u WHERE u.username = '" + username +"' AND u.password = '" + password + "'";
 	    User user;
 	    String email ="";
+	    int user_id = 0;
 	    int role = 0;
 		try
 		{
@@ -91,16 +92,17 @@ public abstract class UserDAO
             password = rs.getString("password");
             email = rs.getString("email");
             role = rs.getInt("role_id");
+            user_id = rs.getInt("user_id");
 		} 
 		catch (SQLException e)
 		{
 			System.out.println("Could not get user from db");
 		}
-		user = new GeneralUser(username, password, email, role);
+		user = new GeneralUser(username, password, email, role, user_id);
 		return user;
 	}
 	
-	public static void postRecipe(String title, String desc, String inst, InputStream input)
+	public static void postRecipe(String title, String desc, String inst, InputStream input, int user_id)
 	{
         try
         {
@@ -112,7 +114,7 @@ public abstract class UserDAO
             statement.setString(2, desc);
             statement.setString(3, inst);
             statement.setBlob(4, input);
-            statement.setInt(5, 10);
+            statement.setInt(5, user_id);
             int status = statement.executeUpdate();
             if(status > 0) {
                 System.out.println("Record is inserted successfully !!!");
