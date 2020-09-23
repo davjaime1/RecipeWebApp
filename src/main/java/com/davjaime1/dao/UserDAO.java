@@ -127,9 +127,8 @@ public abstract class UserDAO
         }
 	}
 	
-	public static List<Post> getPost()
+	public static List<Post> queryPost(String query)
 	{	    
-	    String query = "SELECT * FROM recipe r";
 	    List<Post> postList = new ArrayList<Post>();
 	    try(Connection conn = SQLConnection.getDBConnection(); Statement stmt = conn.createStatement();)
 	    {
@@ -174,5 +173,21 @@ public abstract class UserDAO
             ex.printStackTrace();
         }
 	    return postList;
+	}
+	
+	public static List<Post> getAllPost()
+	{
+		String query = "SELECT * FROM recipe r";
+		List<Post> postList = new ArrayList<Post>();
+		postList = queryPost(query);
+		return postList;
+	}
+	
+	public static Post getSpecificPost(int postId)
+	{
+		String query = "SELECT * FROM recipe r WHERE r.recipe_id = '" + postId + "'";
+		List<Post> postList = new ArrayList<Post>();
+		postList = queryPost(query);
+		return postList.get(0);
 	}
 }

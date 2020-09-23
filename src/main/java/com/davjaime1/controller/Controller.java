@@ -55,7 +55,9 @@ public class Controller extends HttpServlet {
 		else if(action.equalsIgnoreCase("ViewSpecificPost"))
 		{
 			int postNum = Integer.parseInt(request.getParameter("postNum"));
-			request.setAttribute("postNum", postNum);
+			//Using the postNum we can now query the specifc post and the set the attributes to display it.
+			Post p = UserDAO.getSpecificPost(postNum);
+			request.setAttribute("Post", p);	
 			url = "/ViewSpecificPost.jsp";
 		}
 		getServletContext().getRequestDispatcher(url).forward(request, response);
@@ -118,7 +120,7 @@ public class Controller extends HttpServlet {
 				User user = UserDAO.getUser(username, password);
 				session.setAttribute("USER", user);
 				List<Post> postList = new ArrayList<Post>();
-				postList = UserDAO.getPost();
+				postList = UserDAO.getAllPost();
 				request.setAttribute("Post", postList);
 				url = "/ViewAllRecipes.jsp";
 			}
@@ -148,7 +150,7 @@ public class Controller extends HttpServlet {
 			
 			//Now get ready for view all recipes page
 			List<Post> postList = new ArrayList<Post>();
-			postList = UserDAO.getPost();
+			postList = UserDAO.getAllPost();
 			request.setAttribute("Post", postList);
 			
 			url = "/ViewAllRecipes.jsp";
@@ -156,7 +158,7 @@ public class Controller extends HttpServlet {
 		else if(action.equalsIgnoreCase("ViewAllRecipes"))
 		{
 			List<Post> postList = new ArrayList<Post>();
-			postList = UserDAO.getPost();
+			postList = UserDAO.getAllPost();
 			request.setAttribute("Post", postList);
 			url = "/ViewAllRecipes.jsp";
 		}
