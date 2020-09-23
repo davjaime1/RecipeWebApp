@@ -52,6 +52,12 @@ public class Controller extends HttpServlet {
         {
 			url="/CreatePost.jsp";
         }
+		else if(action.equalsIgnoreCase("ViewSpecificPost"))
+		{
+			int postNum = Integer.parseInt(request.getParameter("postNum"));
+			request.setAttribute("postNum", postNum);
+			url = "/ViewSpecificPost.jsp";
+		}
 		getServletContext().getRequestDispatcher(url).forward(request, response);
 	}
 
@@ -132,9 +138,7 @@ public class Controller extends HttpServlet {
 			String desc = request.getParameter("desc");
 			String inst = request.getParameter("instructions");
 			User u = (User) session.getAttribute("USER");
-			System.out.println("User: " + u);
 			int user_id = u.getUserId();
-			System.out.println(user_id);
 			InputStream input = null; // input stream of the upload file
 			Part filePart = request.getPart("photo");
 			input = filePart.getInputStream();
@@ -158,6 +162,7 @@ public class Controller extends HttpServlet {
 		}
 		else
 		{
+			url = "/index.jsp";
 		}
 		getServletContext().getRequestDispatcher(url).forward(request, response);
 	}

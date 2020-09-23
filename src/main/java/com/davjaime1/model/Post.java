@@ -2,6 +2,7 @@ package com.davjaime1.model;
 
 public class Post
 {
+	private int postId;
 	private String title;
 	private String description;
 	private String instructions;
@@ -10,10 +11,17 @@ public class Post
 	@Override
 	public String toString()
 	{
-		return "Post [title=" + title + ", description=" + description + ", instructions=" + instructions + ", userId="
-				+ userId + ", photo=" + photo + "]";
+		return "Post [postId=" + postId + ", title=" + title + ", description=" + description + ", instructions="
+				+ instructions + ", userId=" + userId + ", photo=" + photo + "]";
 	}
-	
+	public int getPostId()
+	{
+		return postId;
+	}
+	public void setPostId(int postId)
+	{
+		this.postId = postId;
+	}
 	public String getUserId()
 	{
 		return userId;

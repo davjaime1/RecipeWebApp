@@ -20,7 +20,7 @@
    		<br>
    		<table>
    			<c:forEach items="${Post}" var="item">
-   				<tr><td><img src="data:image/jpg;base64,${item.photo}" width="240" height="300"/></td></tr>
+   				<tr><td><a href="Controller?action=ViewSpecificPost&postNum=${item.postId}"><img src="data:image/jpg;base64,${item.photo}" width="240" height="300"/></a></td></tr>
 				<tr><td>Title: <c:out value="${item.title}" /></td></tr>
 				<tr><td>Description: <c:out value="${item.description}" /></td></tr>
 				<tr><td>Instructions: <pre><c:out value="${item.instructions}" /></pre></td></tr>

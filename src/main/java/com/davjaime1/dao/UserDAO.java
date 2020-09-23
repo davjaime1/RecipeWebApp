@@ -136,6 +136,7 @@ public abstract class UserDAO
             ResultSet rs = stmt.executeQuery(query);
             while(rs.next()) 
             {
+            	int postId = Integer.parseInt(rs.getString("recipe_id"));
                 String title = rs.getString("title");
                 String desc = rs.getString("description");
                 String instruction = rs.getString("instruction");
@@ -159,6 +160,7 @@ public abstract class UserDAO
                 outputStream.close();
                
                 Post p = new Post();
+                p.setPostId(postId);
                 p.setTitle(title);
                 p.setDescription(desc);
                 p.setInstructions(instruction);
