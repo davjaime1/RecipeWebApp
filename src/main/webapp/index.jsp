@@ -24,7 +24,8 @@
 		</table>
 		<input name="submit" type="submit" value="Login">
 	</form>
-<form name="registerform" action="RegisterForm.jsp" method="get">
+<form name="registerform" action="Controller" method="get">
+	<input id="actionid" type="hidden" name="action" value="Register" />
 <input type="submit" value="Register">
 </form>
 </body>

@@ -3,12 +3,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page isELIgnored="false"%>
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
 
-</body>
-</html>
+<form name="logoutform" action="Controller" method="get">
+	<input id="actionid" type="hidden" name="action" value="logout" />
+	<input type="submit" value="Logout">
+</form>
+<form name="myPostsform" action="Controller" method="get">
+	<input id="actionid" type="hidden" name="action" value="myPosts" />
+	<input type="submit" value="My Recepies">
+</form>

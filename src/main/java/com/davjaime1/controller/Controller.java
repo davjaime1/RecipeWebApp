@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -49,7 +50,7 @@ public class Controller extends HttpServlet {
 		HttpSession session = request.getSession();
 		String action = request.getParameter("action");
 		String url = "";
-		if (action.equalsIgnoreCase("CreateNewPostPage"))
+		if(action.equalsIgnoreCase("CreateNewPostPage"))
         {
 			url="/CreatePost.jsp";
         }
@@ -60,6 +61,19 @@ public class Controller extends HttpServlet {
 			Post p = UserDAO.getSpecificPost(postNum);
 			request.setAttribute("Post", p);	
 			url = "/ViewSpecificPost.jsp";
+		}
+		else if(action.equalsIgnoreCase("logout"))
+		{
+			session.invalidate();
+			url = "/index.jsp";
+		}
+		else if(action.equalsIgnoreCase("Register"))
+		{
+			url = "/RegisterForm.jsp";
+		}
+		else
+		{
+			url = "/index.jsp";
 		}
 		getServletContext().getRequestDispatcher(url).forward(request, response);
 	}
