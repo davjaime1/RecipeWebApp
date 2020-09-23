@@ -60,6 +60,9 @@ public class Controller extends HttpServlet {
 			//Using the postNum we can now query the specifc post and the set the attributes to display it.
 			Post p = UserDAO.getSpecificPost(postNum);
 			request.setAttribute("Post", p);	
+			String pUser = UserDAO.getPostUser(p.getUserId());
+			System.out.println(pUser);
+			request.setAttribute("pUser", pUser);
 			url = "/ViewSpecificPost.jsp";
 		}
 		else if(action.equalsIgnoreCase("logout"))
@@ -158,9 +161,7 @@ public class Controller extends HttpServlet {
 				err.loginFormError();
 				request.setAttribute("ErrorMsgs", err);
 				url = "/index.jsp";
-				
 			}
-			
 		}
 		else if(action.equalsIgnoreCase("createPost"))
 		{

@@ -201,4 +201,24 @@ public abstract class UserDAO
 		postList = queryPost(query);
 		return postList.get(0);
 	}
+	
+	public static String getPostUser(String userId)
+	{
+		Statement stmt = null;
+	    Connection conn = SQLConnection.getDBConnection();
+	    String query = "SELECT username FROM users u WHERE u.user_id = '" + userId +"'";
+	    String username ="";
+		try
+		{
+            stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            rs.next();
+            username = rs.getString("username");
+		} 
+		catch (SQLException e)
+		{
+			System.out.println("Could not get user from db");
+		}
+		return username;
+	}
 }
