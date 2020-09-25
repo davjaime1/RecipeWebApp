@@ -15,14 +15,14 @@
 	</section>
 	<div class="start">
 		<h2>Create Account</h2>
-		<form name="loginform" action="Controller?action=register" method="post">
-			<table>
+		<form name="loginform" action="Controller?action=register" method="post" class="start">
+			<table class="login">
 				<tr>
 					<td> User Name: </td>
 					<td> <input name="idusername" value="<c:out value='${User.username}'/>"  type="text" maxlength="15"> </td>
 					<c:choose>
 						<c:when test = "${!empty ErrorMsgs.usernameError}">
-							<td> <input name="userIDerror"  value="<c:out value='${ErrorMsgs.usernameError}'/>" type="text" style ="background-color: white; border: none; width: 500px" disabled="disabled"> </td>
+							<input name="userIDerror"  value="<c:out value='${ErrorMsgs.usernameError}'/>" type="text" style =" background: transparent; border: none; width: 500px" disabled="disabled">
 						</c:when>
 			         </c:choose>
 				</tr>
@@ -32,7 +32,7 @@
 					<td> <input name="idpassword" value="<c:out value='${User.password}'/>"  type="password" maxlength="15"> </td>
 					<c:choose>
 						<c:when test = "${!empty ErrorMsgs.passwordError}">
-							<td> <input name="passIDerror"  value="<c:out value='${ErrorMsgs.passwordError}'/>" type="text" style ="background-color: white; border: none; width: 500px" disabled="disabled"> </td>
+							<input name="passIDerror"  value="<c:out value='${ErrorMsgs.passwordError}'/>" type="text" style ="background: transparent; border: none; width: 500px" disabled="disabled">
 						</c:when>
 			        </c:choose>
 				</tr>
@@ -41,7 +41,7 @@
 					<td> <input name="idemail" value="<c:out value='${User.email}'/>"  type="text" maxlength="25"> </td>
 					<c:choose>
 						<c:when test = "${!empty ErrorMsgs.emailError}">
-							<td> <input name="emailIDerror"  value="<c:out value='${ErrorMsgs.emailError}'/>" type="text" style ="background-color: white; border: none; width: 500px" disabled="disabled"> </td>
+							<input name="emailIDerror"  value="<c:out value='${ErrorMsgs.emailError}'/>" type="text" style ="background: transparent; border: none; width: 500px" disabled="disabled">
 						</c:when>
 			        </c:choose>
 				</tr>

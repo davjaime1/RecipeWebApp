@@ -24,7 +24,7 @@
 			<form name="loginform" action="Controller?action=login" method="post" class="start" style="display:inline;">
 				<c:choose>
 					<c:when test = "${!empty ErrorMsgs.loginError}">
-						<input name="userIDerror"  value="<c:out value='${ErrorMsgs.loginError}'/>" type="text" style ="width: 250px" disabled="disabled">
+						<input name="userIDerror"  value="<c:out value='${ErrorMsgs.loginError}'/>" type="text" style ="background: transparent; border: none; width: 250px" disabled="disabled">
 					</c:when>
 			    </c:choose>
 			    <div align="center">
