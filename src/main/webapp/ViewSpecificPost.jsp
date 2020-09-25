@@ -12,9 +12,9 @@
 <body>
 	<%@ include file="Header.jsp" %> 
 	<div class="main">
+		<h2 class="main"><c:out value="${Post.title}" /></h2>
 		<table style="width:1000px; margin-left:auto;margin-right:auto">
 			<tr><td><img src="data:image/jpg;base64,${Post.photo}" style="max-width:400px; max-height:300px;"/></td></tr>
-			<tr><td>Title: <c:out value="${Post.title}" /></td></tr>
 			<tr><td>Description: <c:out value="${Post.description}" /></td></tr>
 			<tr><td>Instructions: <pre  style="overflow: scroll;width:1000px;"><c:out value="${Post.instructions}" /></pre></td></tr>
 			<tr><td>Submitted By: <c:out value="${pUser}" /></td></tr>

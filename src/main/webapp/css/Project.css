@@ -1,6 +1,5 @@
 @charset "ISO-8859-1";
 
-/* General Body Stuff */
 
 body
 {
@@ -19,14 +18,21 @@ h2
 	margin-top: 0;
 }
 
-div.header
+h2.main
 {
-	background-color: white; 
+	text-align:center;
+	font-size: 30px;
 }
 
 div.main
 {
 	margin: auto;
+	width:1000px;
+	background: rgba(255, 221, 210, 0.9);
+    border-radius: 25px;
+    border-style: solid;
+    border-color: purple;
+    padding: 35px;
 }
 
 div.start
@@ -44,9 +50,8 @@ div.start
 form.start
 {
     margin:0 auto;
-    display:block;
-    float:none;
-	text-align: center;
+    text-align: center;
+    display: inline;
 }
 
 section.start
@@ -61,18 +66,14 @@ section.start
     margin-bottom: 100px;
 }
 
-table 
-{
-	margin-left: auto;
-    margin-right: auto;
-}
-
 table.login
 {
 	text-align: center;
 	margin: auto;
 }
 
-/* Below is for the header buttons */
-
-/* Footer Stuff */
+table.posts
+{
+	margin:auto;
+	font-size: 20px;
+}

@@ -42,7 +42,7 @@
 				</div>
 				<input name="submit" type="submit" value="Login" style="margin-left:60px;">
 			</form>
-			<form name="registerform" action="Controller" method="get" style="display:inline;">
+			<form name="registerform" action="Controller" method="get" class="start" style="display:inline;">
 				<input id="actionid" type="hidden" name="action" value="Register" />
 				<input type="submit" value="Register">
 			</form>
