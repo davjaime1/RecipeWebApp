@@ -6,29 +6,48 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<link rel="stylesheet" href="css/Project.css">
+<title>Dave's Recipe Anthology</title>
 </head>
 <body>
-	<form name="loginform" action="Controller?action=register" method="post">
-		<table>
-			<tr>
-				<td> User Name: </td>
-				<td> <input name="idusername" value="<c:out value='${User.username}'/>"  type="text" maxlength="15"> </td>
-				<td> <input name="userIDerror"  value="<c:out value='${ErrorMsgs.usernameError}'/>" type="text" style ="background-color: white; border: none; width: 500px" disabled="disabled"> </td>
-			</tr>
-
-			<tr>
-				<td> Password: </td>
-				<td> <input name="idpassword" value="<c:out value='${User.password}'/>"  type="password" maxlength="15"> </td>
-				<td> <input name="passIDerror"  value="<c:out value='${ErrorMsgs.passwordError}'/>" type="text" style ="background-color: white; border: none; width: 500px" disabled="disabled"> </td>
-			</tr>
-			<tr>
-				<td> Email: </td>
-				<td> <input name="idemail" value="<c:out value='${User.email}'/>"  type="text" maxlength="25"> </td>
-				<td> <input name="emailIDerror"  value="<c:out value='${ErrorMsgs.emailError}'/>" type="text" style ="background-color: white; border: none; width: 500px" disabled="disabled"> </td>
-			</tr>
-		</table>
-		<input name="submit" type="submit" value="Register">
-	</form>
+	<section class="start">
+		<h1>Dave's Recipe Anthology</h1>
+	</section>
+	<div class="start">
+		<h2>Create Account</h2>
+		<form name="loginform" action="Controller?action=register" method="post">
+			<table>
+				<tr>
+					<td> User Name: </td>
+					<td> <input name="idusername" value="<c:out value='${User.username}'/>"  type="text" maxlength="15"> </td>
+					<c:choose>
+						<c:when test = "${!empty ErrorMsgs.usernameError}">
+							<td> <input name="userIDerror"  value="<c:out value='${ErrorMsgs.usernameError}'/>" type="text" style ="background-color: white; border: none; width: 500px" disabled="disabled"> </td>
+						</c:when>
+			         </c:choose>
+				</tr>
+	
+				<tr>
+					<td> Password: </td>
+					<td> <input name="idpassword" value="<c:out value='${User.password}'/>"  type="password" maxlength="15"> </td>
+					<c:choose>
+						<c:when test = "${!empty ErrorMsgs.passwordError}">
+							<td> <input name="passIDerror"  value="<c:out value='${ErrorMsgs.passwordError}'/>" type="text" style ="background-color: white; border: none; width: 500px" disabled="disabled"> </td>
+						</c:when>
+			        </c:choose>
+				</tr>
+				<tr>
+					<td> Email: </td>
+					<td> <input name="idemail" value="<c:out value='${User.email}'/>"  type="text" maxlength="25"> </td>
+					<c:choose>
+						<c:when test = "${!empty ErrorMsgs.emailError}">
+							<td> <input name="emailIDerror"  value="<c:out value='${ErrorMsgs.emailError}'/>" type="text" style ="background-color: white; border: none; width: 500px" disabled="disabled"> </td>
+						</c:when>
+			        </c:choose>
+				</tr>
+			</table>
+			<input name="submit" type="submit" value="Register">
+		</form>
+	</div>
 </body>
 </html>

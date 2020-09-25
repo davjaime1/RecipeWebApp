@@ -183,7 +183,7 @@ public abstract class UserDAO
 	
 	public static List<Post> getAllPost()
 	{
-		String query = "SELECT * FROM recipe r WHERE r.view_id = '" + 1 + "' ORDER BY r.views DESC";
+		String query = "SELECT * FROM recipe r WHERE r.view_id = '" + 1 + "' ORDER BY r.views DESC LIMIT 10";
 		List<Post> postList = new ArrayList<Post>();
 		postList = queryPost(query);
 		return postList;

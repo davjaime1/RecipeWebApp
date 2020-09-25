@@ -6,17 +6,20 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<link rel="stylesheet" href="css/Project.css">
+<title>Dave's Recipe Anthology</title>
 </head>
 	<body>
-		<%@ include file="Header.jsp" %> 
-	   	<table>
-   			<c:forEach items="${Post}" var="item">
-   				<tr><td><a href="Controller?action=ViewSpecificPost&postNum=${item.postId}"><img src="data:image/jpg;base64,${item.photo}" width="240" height="300"/></a></td></tr>
-				<tr><td>Title: <c:out value="${item.title}" /></td></tr>
-				<tr><td>Description: <c:out value="${item.description}" /></td></tr>
-	   		   	<tr><td><a href="Controller?action=ViewSpecificPost&postNum=${item.postId}">Read More...</a></td></tr>
-	   		</c:forEach>	   		
-   		</table>
+		<%@ include file="Header.jsp" %>
+		<div class="main">
+		   	<table style="width:1000px; margin-left:auto;margin-right:auto">
+	   			<c:forEach items="${Post}" var="item">
+	   				<tr><td><a href="Controller?action=ViewSpecificPost&postNum=${item.postId}"><img src="data:image/jpg;base64,${item.photo}" width="240" height="300"/></a></td></tr>
+					<tr><td>Title: <c:out value="${item.title}" /></td></tr>
+					<tr><td>Description: <c:out value="${item.description}" /></td></tr>
+		   		   	<tr><td><a href="Controller?action=ViewSpecificPost&postNum=${item.postId}">Read More...</a></td></tr>
+		   		</c:forEach>	   		
+	   		</table>
+   		</div>
 	</body>
 </html>

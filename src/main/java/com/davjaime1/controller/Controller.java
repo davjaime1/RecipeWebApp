@@ -181,12 +181,12 @@ public class Controller extends HttpServlet {
 			//Now we need to query
 			UserDAO.postRecipe(title, desc, inst, input, user_id, viewPostId);
 			
-			//Now get ready for view all recipes page
+			//Now we use the user_id to query
 			List<Post> postList = new ArrayList<Post>();
-			postList = UserDAO.getAllPost();
+			postList = UserDAO.getAllMyPosts(user_id);
 			request.setAttribute("Post", postList);
 			
-			url = "/ViewAllRecipes.jsp";
+			url = "/MyPosts.jsp";
 		}
 		else if(action.equalsIgnoreCase("ViewAllRecipes"))
 		{

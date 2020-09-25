@@ -6,31 +6,34 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<link rel="stylesheet" href="css/Project.css">
+<title>Dave's Recipe Anthology</title>
 </head>
 <body>
 	<%@ include file="Header.jsp" %> 
-	<table >
-		<tr><td><img src="data:image/jpg;base64,${Post.photo}" width="240" height="300"/></td></tr>
-		<tr><td>Title: <c:out value="${Post.title}" /></td></tr>
-		<tr><td>Description: <c:out value="${Post.description}" /></td></tr>
-		<tr><td>Instructions: <pre><c:out value="${Post.instructions}" /></pre></td></tr>
-		<tr><td>Submitted By: <c:out value="${pUser}" /></td></tr>
-		<tr><td>Views: <c:out value="${Post.views}" /></td></tr>
-		<c:choose>
-			<c:when test = "${Post.userId == USER.userId}">
-				<tr><td>Post Visibility: 
-					<c:choose>
-		         		<c:when test = "${Post.viewId == 0}">
-		            		Private
-		         		</c:when>
-		         		<c:when test = "${Post.viewId == 1}">
-		            		Public
-		         		</c:when>
-		         	</c:choose>
-		         </td></tr>
-		 	</c:when>
-         </c:choose>
-   	</table>
+	<div class="main">
+		<table style="width:1000px; margin-left:auto;margin-right:auto">
+			<tr><td><img src="data:image/jpg;base64,${Post.photo}" style="max-width:400px; max-height:300px;"/></td></tr>
+			<tr><td>Title: <c:out value="${Post.title}" /></td></tr>
+			<tr><td>Description: <c:out value="${Post.description}" /></td></tr>
+			<tr><td>Instructions: <pre  style="overflow: scroll;width:1000px;"><c:out value="${Post.instructions}" /></pre></td></tr>
+			<tr><td>Submitted By: <c:out value="${pUser}" /></td></tr>
+			<tr><td>Views: <c:out value="${Post.views}" /></td></tr>
+			<c:choose>
+				<c:when test = "${Post.userId == USER.userId}">
+					<tr><td>Post Visibility: 
+						<c:choose>
+			         		<c:when test = "${Post.viewId == 0}">
+			            		Private
+			         		</c:when>
+			         		<c:when test = "${Post.viewId == 1}">
+			            		Public
+			         		</c:when>
+			         	</c:choose>
+			         </td></tr>
+			 	</c:when>
+	         </c:choose>
+	   	</table>
+   	</div>
 </body>
 </html>
