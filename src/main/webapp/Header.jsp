@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="css/Project.css">
 <section class="start">
 	<div>
-		<h1>Recipe Anthology</h1>
+		<h1>Dave's Recipe Anthology</h1>
 		<form name="logoutform" action="Controller" method="get" class="start" style="display:inline;">
 			<input id="actionid" type="hidden" name="action" value="logout" />
 			<input type="submit" value="Logout">

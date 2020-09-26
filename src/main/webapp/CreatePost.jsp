@@ -12,10 +12,10 @@
 
 <body>
 	<%@ include file="Header.jsp" %>
-	<div class="main"> 
-		<h2>Post a new recipe</h2>
+	<div class="main" style="width:600px;"> 
+		<h2 class="main">Post a new recipe</h2>
 	    <form method="post" action="Controller?action=createPost" enctype="multipart/form-data">
-	        <table>
+	        <table class = "posts">
 	            <tr>
 	                <td>Recipe Title: </td>
 	                <td><input type="text" name="title" size="50"/></td>
