@@ -91,9 +91,7 @@ public class Controller extends HttpServlet {
 		}
 		else if(action.equalsIgnoreCase("delete"))
 		{
-			System.out.println("delete time");
 			int postNum = Integer.parseInt(request.getParameter("postNum"));
-			System.out.println(postNum);
 			UserDAO.deleteSpecificPost(postNum);
 			
 			User u = (User) session.getAttribute("USER");
@@ -103,6 +101,21 @@ public class Controller extends HttpServlet {
 			request.setAttribute("Post", postList);
 			
 			url = "/MyPosts.jsp";
+		}
+		else if(action.equalsIgnoreCase("changeVis"))
+		{
+			int postNum = Integer.parseInt(request.getParameter("postNum"));
+			int vis = Integer.parseInt(request.getParameter("vis"));
+			UserDAO.changeVisPost(postNum, vis);
+			
+			Post p = UserDAO.getSpecificPost(postNum);
+			request.setAttribute("Post", p);	
+			String pUser = UserDAO.getPostUser(p.getUserId());
+			request.setAttribute("pUser", pUser);
+			
+			//Now we need to update the view count
+			UserDAO.upView(p.getPostId());
+			url = "/ViewSpecificPost.jsp";
 		}
 		else
 		{

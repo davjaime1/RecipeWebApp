@@ -252,4 +252,18 @@ public abstract class UserDAO
 		String query = "DELETE FROM recipe r WHERE r.recipe_id = '" + postNum + "'";
 		executeQuery(query);
 	}
+	
+	public static void changeVisPost(int postNum, int vis)
+	{
+		if(vis==1)
+		{
+			vis=0;
+		}
+		else
+		{
+			vis=1;
+		}
+		String query = "UPDATE recipe r SET view_id = '" + vis + "' WHERE r.recipe_id = '" + postNum + "'";
+		executeQuery(query);
+	}
 }
