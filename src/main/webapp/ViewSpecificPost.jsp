@@ -31,6 +31,7 @@
 			         		</c:when>
 			         	</c:choose>
 			         </td></tr>
+			         <tr><td><a href="Controller?action=delete&postNum=${Post.postId}">Delete Post</a></td></tr>
 			 	</c:when>
 	         </c:choose>
 	   	</table>

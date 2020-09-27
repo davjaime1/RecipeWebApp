@@ -227,9 +227,14 @@ public abstract class UserDAO
 	
 	public static void upView(int postId)
 	{
+		String query = "UPDATE recipe SET views = views + 1 WHERE recipe_id = '" + postId + "'";
+		executeQuery(query);
+	}
+	
+	public static void executeQuery(String query)
+	{
 		Statement stmt = null;
 	    Connection conn = SQLConnection.getDBConnection();
-		String query = "UPDATE recipe SET views = views + 1 WHERE recipe_id = '" + postId + "'";
 		try
 		{
             stmt = conn.createStatement();
@@ -240,5 +245,11 @@ public abstract class UserDAO
 		{
 			System.out.println(e);
 		}
+	}
+	
+	public static void deleteSpecificPost(int postNum)
+	{
+		String query = "DELETE FROM recipe r WHERE r.recipe_id = '" + postNum + "'";
+		executeQuery(query);
 	}
 }

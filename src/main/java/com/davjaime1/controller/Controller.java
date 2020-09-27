@@ -89,6 +89,21 @@ public class Controller extends HttpServlet {
 			
 			url = "/MyPosts.jsp";
 		}
+		else if(action.equalsIgnoreCase("delete"))
+		{
+			System.out.println("delete time");
+			int postNum = Integer.parseInt(request.getParameter("postNum"));
+			System.out.println(postNum);
+			UserDAO.deleteSpecificPost(postNum);
+			
+			User u = (User) session.getAttribute("USER");
+			int user_id = u.getUserId();
+			List<Post> postList = new ArrayList<Post>();
+			postList = UserDAO.getAllMyPosts(user_id);
+			request.setAttribute("Post", postList);
+			
+			url = "/MyPosts.jsp";
+		}
 		else
 		{
 			url = "/index.jsp";
