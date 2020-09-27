@@ -189,6 +189,14 @@ public abstract class UserDAO
 		return postList;
 	}
 	
+	public static List<Post> getAdminAllPost()
+	{
+		String query = "SELECT * FROM recipe r";
+		List<Post> postList = new ArrayList<Post>();
+		postList = queryPost(query);
+		return postList;
+	}
+	
 	public static List<Post> getAllMyPosts(int user_id)
 	{
 		String query = "SELECT * FROM recipe r WHERE r.user_id = '" + user_id + "'";

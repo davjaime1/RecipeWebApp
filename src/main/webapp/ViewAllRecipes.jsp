@@ -11,7 +11,7 @@
    	<body>
    		<%@ include file="Header.jsp" %> 
    		<div class="main">
-	   		<h2 class="main">Most Viewed Recipes</h2>
+	   		<h2 class="main">All Recipes</h2>
 	   		<table class="posts">
 	   			<c:forEach items="${Post}" var="item">
 	   				<tr><td><a href="Controller?action=ViewSpecificPost&postNum=${item.postId}"><img src="data:image/jpg;base64,${item.photo}" style="max-width:400px; max-height:300px;"/></a></td></tr>

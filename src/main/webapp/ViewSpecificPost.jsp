@@ -20,7 +20,7 @@
 			<tr><td><br>Submitted By: <c:out value="${pUser}" /></td></tr>
 			<tr><td>Views: <c:out value="${Post.views}" /></td></tr>
 			<c:choose>
-				<c:when test = "${Post.userId == USER.userId}">
+				<c:when test = "${(Post.userId == USER.userId) or (USER.roleId == 0)}">
 					<tr><td>Post Visibility: 
 						<c:choose>
 			         		<c:when test = "${Post.viewId == 0}">

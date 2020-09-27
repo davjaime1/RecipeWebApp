@@ -15,13 +15,17 @@
 			<input id="actionid" type="hidden" name="action" value="ViewAllRecipes" />
 			<input type="submit" value="Most Viewed Recipes">
 		</form>
-		<form name="myRecipesform" action="Controller" method="get" class="start" style="display:inline;">
-			<input id="actionid" type="hidden" name="action" value="myPosts" />
-			<input type="submit" value="My Recepies">
-		</form>
-		<form name="CreatePostform" action="Controller" method="get" class="start" style="display:inline;">
-			<input id="actionid" type="hidden" name="action" value="CreateNewPostPage" />
-			<input type="submit" value="Create a new post">
-		</form>
+		<c:choose>
+			<c:when test = "${USER.roleId != 0}">
+				<form name="myRecipesform" action="Controller" method="get" class="start" style="display:inline;">
+					<input id="actionid" type="hidden" name="action" value="myPosts" />
+					<input type="submit" value="My Recepies">
+				</form>
+				<form name="CreatePostform" action="Controller" method="get" class="start" style="display:inline;">
+					<input id="actionid" type="hidden" name="action" value="CreateNewPostPage" />
+					<input type="submit" value="Create a new post">
+				</form>
+			</c:when>
+	    </c:choose>
 	</div>
 </section>

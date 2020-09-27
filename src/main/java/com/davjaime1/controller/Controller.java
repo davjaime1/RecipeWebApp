@@ -62,7 +62,7 @@ public class Controller extends HttpServlet {
 			request.setAttribute("Post", p);	
 			String pUser = UserDAO.getPostUser(p.getUserId());
 			request.setAttribute("pUser", pUser);
-			
+			User u = (User) session.getAttribute("USER");
 			//Now we need to update the view count
 			UserDAO.upView(p.getPostId());
 			url = "/ViewSpecificPost.jsp";
@@ -94,10 +94,18 @@ public class Controller extends HttpServlet {
 			int postNum = Integer.parseInt(request.getParameter("postNum"));
 			UserDAO.deleteSpecificPost(postNum);
 			
-			User u = (User) session.getAttribute("USER");
-			int user_id = u.getUserId();
+			User user = (User) session.getAttribute("USER");
+			int user_id = user.getUserId();
 			List<Post> postList = new ArrayList<Post>();
-			postList = UserDAO.getAllMyPosts(user_id);
+			if(user.getRoleId() == 0)
+			{
+				postList = UserDAO.getAdminAllPost();
+			}
+			else
+			{
+				postList = UserDAO.getAllMyPosts(user_id);
+			}
+			postList = UserDAO.getAdminAllPost();
 			request.setAttribute("Post", postList);
 			
 			url = "/MyPosts.jsp";
@@ -181,7 +189,14 @@ public class Controller extends HttpServlet {
 				User user = UserDAO.getUser(username, password);
 				session.setAttribute("USER", user);
 				List<Post> postList = new ArrayList<Post>();
-				postList = UserDAO.getAllPost();
+				if(user.getRoleId() == 0)
+				{
+					postList = UserDAO.getAdminAllPost();
+				}
+				else
+				{
+					postList = UserDAO.getAllPost();
+				}
 				request.setAttribute("Post", postList);
 				url = "/ViewAllRecipes.jsp";
 			}
@@ -242,9 +257,16 @@ public class Controller extends HttpServlet {
 		}
 		else if(action.equalsIgnoreCase("ViewAllRecipes"))
 		{
+			User user = (User) session.getAttribute("USER");
 			List<Post> postList = new ArrayList<Post>();
-			postList = UserDAO.getAllPost();
-			request.setAttribute("Post", postList);
+			if(user.getRoleId() == 0)
+			{
+				postList = UserDAO.getAdminAllPost();
+			}
+			else
+			{
+				postList = UserDAO.getAllPost();
+			}	request.setAttribute("Post", postList);
 			url = "/ViewAllRecipes.jsp";
 		}
 		else
