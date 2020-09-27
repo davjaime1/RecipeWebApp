@@ -77,3 +77,10 @@ table.posts
 	margin:auto;
 	font-size: 20px;
 }
+
+table.create
+{
+	text-align: center;
+	margin:auto;
+	font-size: 20px;
+}

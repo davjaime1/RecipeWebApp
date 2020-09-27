@@ -171,22 +171,46 @@ public class Controller extends HttpServlet {
 			String desc = request.getParameter("desc");
 			String inst = request.getParameter("instructions");
 			int viewPostId = Integer.parseInt(request.getParameter("view"));
-			System.out.println(viewPostId);
 			User u = (User) session.getAttribute("USER");
 			int user_id = u.getUserId();
 			InputStream input = null; // input stream of the upload file
 			Part filePart = request.getPart("photo");
-			input = filePart.getInputStream();
-						
-			//Now we need to query
-			UserDAO.postRecipe(title, desc, inst, input, user_id, viewPostId);
-			
-			//Now we use the user_id to query
-			List<Post> postList = new ArrayList<Post>();
-			postList = UserDAO.getAllMyPosts(user_id);
-			request.setAttribute("Post", postList);
-			
-			url = "/MyPosts.jsp";
+			ErrorMsgs err = new ErrorMsgs();
+			if (filePart != null) {
+	            // prints out some information for debugging
+	            if(filePart.getContentType().equals("image/jpeg") || filePart.getContentType().equals("image/png"))
+	            {
+	    			input = filePart.getInputStream();
+	    			
+	    			//First we need to validate and if there are errors and reload the page
+	    			
+	    			err.validatePostForm(title, desc, inst);
+	    			request.setAttribute("ErrorMsgs", err);
+	    			
+	    			if(err.isError())
+	    			{
+	    				url = "/CreatePost.jsp";
+	    			}
+	    			else
+	    			{
+	    				//Now we need to query
+	    				UserDAO.postRecipe(title, desc, inst, input, user_id, viewPostId);
+	    				
+	    				//Now we use the user_id to query
+	    				List<Post> postList = new ArrayList<Post>();
+	    				postList = UserDAO.getAllMyPosts(user_id);
+	    				request.setAttribute("Post", postList);
+	    				
+	    				url = "/MyPosts.jsp";
+	    			}
+	            }
+	            else
+	            {
+	            	err.imgError();
+	            	request.setAttribute("ErrorMsgs", err);
+	            	url = "/CreatePost.jsp";
+	            }
+	        }
 		}
 		else if(action.equalsIgnoreCase("ViewAllRecipes"))
 		{

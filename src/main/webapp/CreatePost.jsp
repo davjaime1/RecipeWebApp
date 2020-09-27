@@ -15,6 +15,11 @@
 	<div class="main" style="width:600px;"> 
 		<h2 class="main">Post a new recipe</h2>
 	    <form method="post" action="Controller?action=createPost" enctype="multipart/form-data">
+	    	<c:choose>
+					<c:when test = "${!empty ErrorMsgs.postError}">
+						<input name="userIDerror"  value="<c:out value='${ErrorMsgs.postError}'/>" type="text" style ="background: transparent; border: none; width: 200px" disabled="disabled">
+					</c:when>
+			</c:choose>
 	        <table class = "posts">
 	            <tr>
 	                <td>Recipe Title: </td>
@@ -36,7 +41,7 @@
 	            	
 	                <td>
 	                	<label for="1">Public</label><br>
-	                	<input type="radio" id="publicid" name="view" value="1">
+	                	<input type="radio" id="publicid" name="view" value="1" checked>
 	                </td>
 	                <td>
 	                	<label for="0">Private</label><br>
