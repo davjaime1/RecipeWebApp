@@ -60,6 +60,11 @@ public class Controller extends HttpServlet {
 			//Using the postNum we can now query the specifc post and the set the attributes to display it.
 			Post p = UserDAO.getSpecificPost(postNum);
 			request.setAttribute("Post", p);	
+			String pUser = UserDAO.getPostUser(p.getUserId());
+			request.setAttribute("pUser", pUser);
+			User u = (User) session.getAttribute("USER");
+			//Now we need to update the view count
+			UserDAO.upView(p.getPostId());
 			url = "/ViewSpecificPost.jsp";
 		}
 		else if(action.equalsIgnoreCase("logout"))
@@ -83,6 +88,42 @@ public class Controller extends HttpServlet {
 			request.setAttribute("Post", postList);
 			
 			url = "/MyPosts.jsp";
+		}
+		else if(action.equalsIgnoreCase("delete"))
+		{
+			int postNum = Integer.parseInt(request.getParameter("postNum"));
+			UserDAO.deleteSpecificPost(postNum);
+			
+			User user = (User) session.getAttribute("USER");
+			int user_id = user.getUserId();
+			List<Post> postList = new ArrayList<Post>();
+			if(user.getRoleId() == 0)
+			{
+				postList = UserDAO.getAdminAllPost();
+			}
+			else
+			{
+				postList = UserDAO.getAllMyPosts(user_id);
+			}
+			postList = UserDAO.getAdminAllPost();
+			request.setAttribute("Post", postList);
+			
+			url = "/MyPosts.jsp";
+		}
+		else if(action.equalsIgnoreCase("changeVis"))
+		{
+			int postNum = Integer.parseInt(request.getParameter("postNum"));
+			int vis = Integer.parseInt(request.getParameter("vis"));
+			UserDAO.changeVisPost(postNum, vis);
+			
+			Post p = UserDAO.getSpecificPost(postNum);
+			request.setAttribute("Post", p);	
+			String pUser = UserDAO.getPostUser(p.getUserId());
+			request.setAttribute("pUser", pUser);
+			
+			//Now we need to update the view count
+			UserDAO.upView(p.getPostId());
+			url = "/ViewSpecificPost.jsp";
 		}
 		else
 		{
@@ -148,7 +189,14 @@ public class Controller extends HttpServlet {
 				User user = UserDAO.getUser(username, password);
 				session.setAttribute("USER", user);
 				List<Post> postList = new ArrayList<Post>();
-				postList = UserDAO.getAllPost();
+				if(user.getRoleId() == 0)
+				{
+					postList = UserDAO.getAdminAllPost();
+				}
+				else
+				{
+					postList = UserDAO.getAllPost();
+				}
 				request.setAttribute("Post", postList);
 				url = "/ViewAllRecipes.jsp";
 			}
@@ -158,9 +206,7 @@ public class Controller extends HttpServlet {
 				err.loginFormError();
 				request.setAttribute("ErrorMsgs", err);
 				url = "/index.jsp";
-				
 			}
-			
 		}
 		else if(action.equalsIgnoreCase("createPost"))
 		{
@@ -168,28 +214,59 @@ public class Controller extends HttpServlet {
 			String desc = request.getParameter("desc");
 			String inst = request.getParameter("instructions");
 			int viewPostId = Integer.parseInt(request.getParameter("view"));
-			System.out.println(viewPostId);
 			User u = (User) session.getAttribute("USER");
 			int user_id = u.getUserId();
 			InputStream input = null; // input stream of the upload file
 			Part filePart = request.getPart("photo");
-			input = filePart.getInputStream();
-						
-			//Now we need to query
-			UserDAO.postRecipe(title, desc, inst, input, user_id, viewPostId);
-			
-			//Now get ready for view all recipes page
-			List<Post> postList = new ArrayList<Post>();
-			postList = UserDAO.getAllPost();
-			request.setAttribute("Post", postList);
-			
-			url = "/ViewAllRecipes.jsp";
+			ErrorMsgs err = new ErrorMsgs();
+			if (filePart != null) {
+	            // prints out some information for debugging
+	            if(filePart.getContentType().equals("image/jpeg") || filePart.getContentType().equals("image/png"))
+	            {
+	    			input = filePart.getInputStream();
+	    			
+	    			//First we need to validate and if there are errors and reload the page
+	    			
+	    			err.validatePostForm(title, desc, inst);
+	    			request.setAttribute("ErrorMsgs", err);
+	    			
+	    			if(err.isError())
+	    			{
+	    				url = "/CreatePost.jsp";
+	    			}
+	    			else
+	    			{
+	    				//Now we need to query
+	    				UserDAO.postRecipe(title, desc, inst, input, user_id, viewPostId);
+	    				
+	    				//Now we use the user_id to query
+	    				List<Post> postList = new ArrayList<Post>();
+	    				postList = UserDAO.getAllMyPosts(user_id);
+	    				request.setAttribute("Post", postList);
+	    				
+	    				url = "/MyPosts.jsp";
+	    			}
+	            }
+	            else
+	            {
+	            	err.imgError();
+	            	request.setAttribute("ErrorMsgs", err);
+	            	url = "/CreatePost.jsp";
+	            }
+	        }
 		}
 		else if(action.equalsIgnoreCase("ViewAllRecipes"))
 		{
+			User user = (User) session.getAttribute("USER");
 			List<Post> postList = new ArrayList<Post>();
-			postList = UserDAO.getAllPost();
-			request.setAttribute("Post", postList);
+			if(user.getRoleId() == 0)
+			{
+				postList = UserDAO.getAdminAllPost();
+			}
+			else
+			{
+				postList = UserDAO.getAllPost();
+			}	request.setAttribute("Post", postList);
 			url = "/ViewAllRecipes.jsp";
 		}
 		else

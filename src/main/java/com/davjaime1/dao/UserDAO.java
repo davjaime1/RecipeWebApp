@@ -108,7 +108,7 @@ public abstract class UserDAO
         {
         	Connection conn = SQLConnection.getDBConnection();
             // constructs SQL statement
-            String query = "INSERT INTO recipe (title, description, instruction, photo, user_id, view) VALUES (?,?,?,?,?,?)";
+            String query = "INSERT INTO recipe (title, description, instruction, photo, user_id, view_id, views) VALUES (?,?,?,?,?,?,?)";
             PreparedStatement statement = conn.prepareStatement(query);
             statement.setString(1, title);
             statement.setString(2, desc);
@@ -116,6 +116,7 @@ public abstract class UserDAO
             statement.setBlob(4, input);
             statement.setInt(5, user_id);
             statement.setInt(6, viewPostId);
+            statement.setInt(7, 0);
             int status = statement.executeUpdate();
             if(status > 0) {
                 System.out.println("Record is inserted successfully !!!");
@@ -141,7 +142,8 @@ public abstract class UserDAO
                 String desc = rs.getString("description");
                 String instruction = rs.getString("instruction");
                 String user_id = rs.getString("user_id");
-                int view_id = rs.getInt("view");
+                int view_id = rs.getInt("view_id");
+                int views = rs.getInt("views");
                 Blob blob = rs.getBlob("photo");
                  
                 InputStream inputStream = blob.getBinaryStream();
@@ -168,6 +170,7 @@ public abstract class UserDAO
                 p.setUserId(user_id);
                 p.setPhoto(base64Image);
                 p.setViewId(view_id);
+                p.setViews(views);
                 postList.add(p);
             }
         }
@@ -180,7 +183,15 @@ public abstract class UserDAO
 	
 	public static List<Post> getAllPost()
 	{
-		String query = "SELECT * FROM recipe r WHERE r.view = '" + 1 + "'";
+		String query = "SELECT * FROM recipe r WHERE r.view_id = '" + 1 + "' ORDER BY r.views DESC LIMIT 10";
+		List<Post> postList = new ArrayList<Post>();
+		postList = queryPost(query);
+		return postList;
+	}
+	
+	public static List<Post> getAdminAllPost()
+	{
+		String query = "SELECT * FROM recipe r";
 		List<Post> postList = new ArrayList<Post>();
 		postList = queryPost(query);
 		return postList;
@@ -200,5 +211,67 @@ public abstract class UserDAO
 		List<Post> postList = new ArrayList<Post>();
 		postList = queryPost(query);
 		return postList.get(0);
+	}
+	
+	public static String getPostUser(String userId)
+	{
+		Statement stmt = null;
+	    Connection conn = SQLConnection.getDBConnection();
+	    String query = "SELECT username FROM users u WHERE u.user_id = '" + userId +"'";
+	    String username ="";
+		try
+		{
+            stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            rs.next();
+            username = rs.getString("username");
+		} 
+		catch (SQLException e)
+		{
+			System.out.println("Could not get user from db");
+		}
+		return username;
+	}
+	
+	public static void upView(int postId)
+	{
+		String query = "UPDATE recipe SET views = views + 1 WHERE recipe_id = '" + postId + "'";
+		executeQuery(query);
+	}
+	
+	public static void executeQuery(String query)
+	{
+		Statement stmt = null;
+	    Connection conn = SQLConnection.getDBConnection();
+		try
+		{
+            stmt = conn.createStatement();
+            stmt.executeUpdate(query);
+            conn.commit();
+		} 
+		catch (SQLException e)
+		{
+			System.out.println(e);
+		}
+	}
+	
+	public static void deleteSpecificPost(int postNum)
+	{
+		String query = "DELETE FROM recipe r WHERE r.recipe_id = '" + postNum + "'";
+		executeQuery(query);
+	}
+	
+	public static void changeVisPost(int postNum, int vis)
+	{
+		if(vis==1)
+		{
+			vis=0;
+		}
+		else
+		{
+			vis=1;
+		}
+		String query = "UPDATE recipe r SET view_id = '" + vis + "' WHERE r.recipe_id = '" + postNum + "'";
+		executeQuery(query);
 	}
 }

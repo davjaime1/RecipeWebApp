@@ -1,0 +1,86 @@
+@charset "ISO-8859-1";
+
+
+body
+{
+	background-image: url("../images/body.jpg");
+	font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+h1
+{
+	font-size: 40px;
+}
+
+h2
+{
+	font-size: 25px;
+	margin-top: 0;
+}
+
+h2.main
+{
+	text-align:center;
+	font-size: 30px;
+}
+
+div.main
+{
+	margin: auto;
+	width:1000px;
+	background: rgba(255, 221, 210, 0.9);
+    border-radius: 25px;
+    border-style: solid;
+    border-color: purple;
+    padding: 35px;
+}
+
+div.start
+{
+	width:500px;
+    margin: auto;
+    background: rgba(255, 221, 210, 0.9);
+    border-radius: 25px;
+    border-style: solid;
+    border-color: purple;
+    text-align: center;
+    padding: 50px;
+}
+
+form.start
+{
+    margin:0 auto;
+    text-align: center;
+    display: inline;
+}
+
+section.start
+{
+	width:1100px;
+    margin: auto;
+    text-align: center;
+    background: rgba(255, 221, 210, 0.9);
+    border-radius: 25px;
+    border-style: solid;
+    border-color: purple;
+    margin-bottom: 100px;
+}
+
+table.login
+{
+	text-align: center;
+	margin: auto;
+}
+
+table.posts
+{
+	margin:auto;
+	font-size: 20px;
+}
+
+table.create
+{
+	text-align: center;
+	margin:auto;
+	font-size: 20px;
+}

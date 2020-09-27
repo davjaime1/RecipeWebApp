@@ -10,19 +10,12 @@ public class ErrorMsgs
 	private String emailError;
 	private String loginError;
 	private boolean error;
-	
+	private String postError;
+
 	public ErrorMsgs()
 	{
 		this.error = false;
 	}
-	
-	@Override
-	public String toString()
-	{
-		return "ErrorMsgs [usernameError=" + usernameError + ", passwordError=" + passwordError + ", emailError="
-				+ emailError + ", loginError=" + loginError + ", error=" + error + "]";
-	}
-
 
 	public void validateRegForm(String username, String password, String email)
 	{
@@ -58,7 +51,21 @@ public class ErrorMsgs
 		{
 			setEmailError("");
 		}
-			
+	}
+	
+	public void validatePostForm(String title, String desc, String inst)
+	{
+		if(title.equals("") || desc.equals("") || inst.equals(""))
+		{
+			setPostError("* Text fields cannot be empty");
+			error = true;
+		}
+	}
+	
+	public void imgError()
+	{
+		setPostError("That file type is not supported");
+		error = true;
 	}
 	
 	public void loginFormError()
@@ -114,4 +121,23 @@ public class ErrorMsgs
 	{
 		this.loginError = loginError;
 	}
+	
+	public String getPostError()
+	{
+		return postError;
+	}
+
+	public void setPostError(String postError)
+	{
+		this.postError = postError;
+	}
+
+
+	@Override
+	public String toString()
+	{
+		return "ErrorMsgs [usernameError=" + usernameError + ", passwordError=" + passwordError + ", emailError="
+				+ emailError + ", loginError=" + loginError + ", error=" + error + "]";
+	}
+	
 }
