@@ -13,8 +13,8 @@
 	<%@ include file="Header.jsp" %> 
 	<div class="main">
 		<h2 class="main"><c:out value="${Post.title}" /></h2>
-		<table style="width:1000px; margin-left:auto;margin-right:auto">
-			<tr><td style="text-align: center;"><img src="data:image/jpg;base64,${Post.photo}" style="max-width:400px; max-height:300px;"/></td></tr>
+		<table style="width:100%; margin-left:auto;margin-right:auto">
+			<tr><td style="text-align: center;"><img src="data:image/jpg;base64,${Post.photo}" style="max-width:45%; max-height:35%;"/></td></tr>
 			<tr><td><b>Description </b> <br><c:out value="${Post.description}" /></td></tr>
 			<tr><td style="white-space: pre-wrap;"><b>Instructions </b><br><c:out value="${Post.instructions}" /></td></tr>
 			<tr><td><br>Submitted By: <c:out value="${pUser}" /></td></tr>
