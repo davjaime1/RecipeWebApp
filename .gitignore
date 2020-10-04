@@ -9,6 +9,8 @@ local.properties
 .settings/
 .loadpath
 .recommenders
+.jar
+.war
 
 # External tool builders
 .externalToolBuilders/
